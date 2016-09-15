@@ -1,8 +1,8 @@
 * Process
 ** TODO Read actions from file list
-** TODO Create map of actions to day/time
+** TODO Write logic for user prompt
 
-* Pseudocode
+* Initial pseudo code
   1. Initialize map of days, times and actions.
   2. Prompt user for input
      + Input: date, now, exit
@@ -13,7 +13,7 @@
      3. Display action to user
      4. Repeat Step 1.
 
-  4. If input is now
+  4. If input is now (current time)
      1. Determine current date, time
      2. Query map of actions with current date/time and return stored value
      3. Display action to user
@@ -22,3 +22,5 @@
   5. If input is exit
      1. Indicate to user the program is exiting
      2. end program
+
+* Final pseudo code

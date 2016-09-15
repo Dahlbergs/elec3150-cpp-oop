@@ -1,35 +1,40 @@
 #include <iostream>
-#include <string>
+#include <ctime>
+#include <vector>
+#include <set>
 
-enum Day {
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY,
-    SUNDAY
-};
+#include <stdlib.h>
 
-Day selected_day;
+using namespace std;
+
+string getAction(int day, int time);
+vector<string> actions;
 
 int main() {
 
-    std::cout << "Please input a command. The following are acceptable: "
-              << "1. date/time, 2. now, 3. exit" << std::endl;
+    cout << "Please input a command using the corresponding number.\n"
+         << "The following are acceptable:\n"
+         << "1. date/time\n2. now\n3. exit\nSelection:";
 
+    string selection = "";
 
-    std::string selection = "";
-    if (!std::getline(std::cin, selection)) {
-        std::cout << "Invalid selection, use selection number, or string" << std::endl;
+    while (!getline(cin, selection) ||
+           (selection != "1" &&
+            selection != "2" &&
+            selection != "3")) {
+        cout << "Invalid selection, use selection number" << endl;
+        cout << "Selection: ";
     }
 
-    if(selection == "date/time" || selection == "1") {
-        std::cout << "Please enter a day: " << std::endl;
-
-        std::string day_selection = "";
-        if(!std::getline(std::cin, day_selection)) {
-            std::cout << "Invalid day, try again" << std::endl;
-        }
+    if (selection == "1") {
+        cout << "Please enter a day: " << endl;
     }
+}
+
+string getAction(int day, int time) {
+
+    srand(day + time);
+
+    return actions[rand() % actions.size()];
+
 }
