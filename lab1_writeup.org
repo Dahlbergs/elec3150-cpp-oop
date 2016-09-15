@@ -1,0 +1,16 @@
+#+TITLE: ELEC3150 Lab1 Writeup
+#+AUTHOR: Sam Dahlberg
+
+* Description of Algorithm
+  The program begins by creating an empty array with size /n/ set by
+  the user.  The first for loop iterates from 0 to n-1 in increments
+  of 1, and assigns the value of the iterator, to the same value index
+  of the array.  The second loop, which performs a swap, iterates from
+  0 to =n / 2=. Each iteration starts by storing the value at the
+  iterator index in a temporary variable. The next step is to replace
+  the current index with the value at index /n - current index/. This
+  repeats for /n / 2/ times.  This covers both cases where n is odd or
+  even, since if it is odd, the middle value will be in the same
+  index, regardless if the array is swapped or not. Following the
+  swap, the program prints the contents of the array to the user to
+  verify it was swapped correctly.
