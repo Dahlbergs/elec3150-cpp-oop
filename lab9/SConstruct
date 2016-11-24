@@ -1,0 +1,5 @@
+env = Environment(CXXFLAGS="-std=c++0x");
+
+sources = ['main.cpp', 'person.cpp', 'student.cpp', 'intern.cpp']
+
+program = env.Program("People", sources);

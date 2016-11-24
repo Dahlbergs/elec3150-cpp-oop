@@ -1,0 +1,5 @@
+env = Environment(CXXFLAGS="-std=c++0x");
+
+sources = ['main.cpp', 'player.cpp', 'team.cpp']
+
+program = env.Program("Shootoff", sources);

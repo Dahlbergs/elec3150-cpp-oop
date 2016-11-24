@@ -1,0 +1,5 @@
+env = Environment(CXXFLAGS="-g -std=c++0x");
+
+sources = ['main.cpp', 'tictactoe.cpp']
+
+program = env.Program("TicTacToe", sources)
