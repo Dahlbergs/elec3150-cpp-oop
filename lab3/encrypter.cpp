@@ -5,6 +5,7 @@ std::string encrypt(std::string input, char key) {
     std::string output;
 
     for(char& token : input) {
+        /* Caret (^) is XOR operator */
         output += (char)((short)token ^ (short)key);
     }
 

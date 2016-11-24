@@ -1,0 +1,51 @@
+* Question 1
+  1. Decide the number of steps to get to the middle. If the length of the list
+     is odd, then simply find the integer division length / 2. If it is even,
+     decide on rounding up or down to get the "middle" value of the list.
+  2. For "length", pointer ptr = node.next, where node starts at the head of the
+     list, and then changes each iteration.
+  3. With =ptr= pointing to the middle node, perform the following operation.
+     #+BEGIN_SRC c++
+       ptr.prev.next = ptr.next;
+       ptr.next.prev = ptr.prev;
+
+       delete ptr;
+     #+END_SRC
+
+* Question 2
+  1. Decide which end the user wants to delete.
+  2. If the list has a reference to the tail, and the user wants to delete the
+     tail, perform the following operation.
+     #+BEGIN_SRC c++
+       head.prev = tail.prev;
+       tail.prev.next = head;
+
+       temp ptr = tail;
+       tail = tail.prev;
+
+       delete ptr;
+     #+END_SRC
+  3. If the list does not have a reference to the tail, then the user must
+     iterate to the end of the list, similar to problem one, and then use the
+     previous algorithm, replacing tail with a reference to the tail of the list.
+  4. If the user wants to delete the head of the list, perform the following
+     operation:
+     #+BEGIN_SRC c++
+       head.next.prev = tail;
+       tail.next = head.next;
+
+       temp ptr = head;
+       head = head.next;
+
+       delete ptr;
+     #+END_SRC
+  5. Step 3 still holds. There needs to be a pointer available to the tail for
+     this algorithm to work.
+
+* Question 3
+  Trees are more useful than lists when it comes to searching for values. The
+  depth of a sorted tree is O(log2(N)) while the depth of a sorted list is O(N),
+  where N is the number of elements in the container. That means that searching
+  through a sorted tree is significantly shorter than a sorted list, since half
+  of the list can be ignored on each search iteration.
+

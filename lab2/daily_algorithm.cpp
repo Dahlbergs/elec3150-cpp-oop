@@ -25,7 +25,7 @@ int main() {
         if (!std::getline(std::cin, selection)) {
             std::cout << "Invalid input\n" << std::endl;
         } else {
-            select = stoi(selection);
+            select = std::stoi(selection);
 
             if (select < 1 || select > 3) {
                 std::cout << "Invalid number, enter 1-3" << std::endl;
@@ -45,7 +45,7 @@ int main() {
             if (!std::getline(std::cin, day_select)) {
                 std::cout << "Invalid input\n" << std::endl;
             } else {
-                day = stoi(day_select);
+                day = std::stoi(day_select);
 
                 if (day < 1 || day > 7) {
                     std::cout << "Invalid day, enter 1-7\n" << std::endl;
@@ -64,7 +64,7 @@ int main() {
             if (!std::getline(std::cin, time_select)) {
                 std::cout << "Invalid input\n" << std::endl;
             } else {
-                time = stoi(time_select);
+                time = std::stoi(time_select);
 
                 if (time < 0 || time > 23) {
                     std::cout << "Invalid time, enter 0-23\n" << std::endl;

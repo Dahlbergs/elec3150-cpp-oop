@@ -28,7 +28,7 @@ int main() {
     // Loop through half of the array, swapping the outermost values.
     for(int i = 0; i < (n / 2); i++) {
         // Temporarily store array value;
-        int temp = arr1[i];3
+        int temp = arr1[i];
         // Replace current index with outermost
         arr1[i] = arr1[(n - 1) - i];
         // Replace outermost index with current

@@ -1,0 +1,23 @@
+** Lamp algorithm
+   1. Locate lamp in question
+   2. Locate power cord sticking out of base of lamp. It is long, thin and
+      typically black in color.
+   3. Follow cord. If you find the end with two metal prongs, the cord is
+      unplugged. If the end goes into a wall socket, it is plugged in.
+   4. If it is unplugged, insert end with prongs into wall socket.
+   5. Locate power button or pull-cord. Start at the cord, there may be a
+      rectangular switch that has two states, on and off. If there isn't a
+      switch, move to the base of the lamp. If there is no switch on base of
+      lamp, look close to the lightbulb.  If there is no switch to be found,
+      your lamp is defective.
+   6. If you found a switch, observe the light bulb.
+   7. If it hurts to look at the lightbulb, the lamp is on, and you're done.
+   8. If not, press the switch, and try Step 7 again.
+   9. If it's still not on, try turning the switch. Check Step 7. If still not
+      on, turn switch again. Check Step 7.
+   10. If still not on, remove lightbulb by twisting the bulb counter
+       clockwise. Once removed, bring bulb close to ear, and shake. If you hear
+       a light jingling, the bulb is defective. Locate new bulb, and insert into
+       socket by turning it clockwise.
+   11. Attempt steps 7-9 again.
+   12. If the light is still not on, may god have mercy on your soul.

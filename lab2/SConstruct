@@ -1,0 +1,5 @@
+env = Environment(CXXFLAGS="-std=c++0x");
+
+sources = ['daily_algorithm.cpp']
+
+program = env.Program("Lab2", sources)

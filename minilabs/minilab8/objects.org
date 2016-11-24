@@ -1,0 +1,79 @@
+* Question 1
+  Encapsulation is the idea that the implementation of an objects should not be
+  explicitly available to the user of the object. So an object may have data
+  that is not available outside of the objects scope. If a particular piece of
+  data is useful outside the scope, a relevant setter and getter function will
+  be provided to the user.  An object may also not reveal the details of how
+  its methods work, only revealing what an input should produce as an output.
+  #+BEGIN_SRC c++
+    public class Shape {
+    public:
+        Shape(float height, float width)
+            : height_(height),
+              width_(width) {
+
+        }
+
+        float GetArea() {
+            return height_ * width_;
+        }
+
+    private:
+        float height_;
+        float width_;
+    }
+  #+END_SRC
+
+* Question 2
+  A private function is useful to improve readability of a class and to make it
+  more modular. An example in c++ is given for an object which calculates the
+  resistance of two resistors in parallel.
+
+  #+BEGIN_SRC c++
+    class ParallelResistanceCalc {
+    public:
+        ParallelResistanceCalc(float r1, float r2)
+            : r1_(r1),
+              r2_(r2) {
+        }
+
+        float parallelResistance(float r1, float r2) {
+            return product(r1, r2) / sum(r1,r2);
+        }
+
+    private:
+        float sum(float r1, float r2) {
+            return r1 + r2;
+        }
+        float product(float r1, float r2) {
+            return r1 / r2;
+        }
+
+        float r1_;
+        float r2_;
+    }
+  #+END_SRC
+
+  Once the two resistor values are given to object, the user of the output
+  doesn't care about how the object decides the parallel resistance, only that
+  it gives an accurate calculation.  A user of the object can call
+  parallelResistance(float, float) and receive a value, though it can't call sum
+  and produce independently.
+
+* Question 3
+  A private variable can be initialized in any function of the class, but there
+  are conventions that recommend where the variable should be initialized. All
+  private members should be initialized in the constructor initializer list.  If
+  they can't be initialized there, then they should be initialized in the
+  constructor body.  If the class provides a setter for the variable, then the
+  variable may be constructed in that setter.
+
+* Question 4
+  Constructors and destructors define behavior at the beginning and end of an
+  object's lifecycle, respectively. A constructor is useful because you can create
+  an object with a preferred state.  That variable might hold data that is
+  unique to each instantiation, so it should be created with that data inherent
+  to itself. A destructor is valuable because you can perform heap memory free
+  operations that only happen when the object leaves scope.  If you have an
+  object that creates a pointer to heap memory, the destructor can explicitly free that
+  memory, reducing memory leaks.

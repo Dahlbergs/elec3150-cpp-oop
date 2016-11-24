@@ -1,0 +1,13 @@
+* Binary Search
+  Starting array: {1, 8, 10, 14, 16, 26, 50}
+
+  1. Get array value at length/2. Length = 7, divide by 2 to get 3.5, integer
+     division rounds up, there for length/2 = 4. Arrays are zero indexed, so
+     subtract 1 fro length to get 3. Element at array[3] is 14.
+  2. Compare search value to middle array value. 15 > 14, therefore the value is
+     in the second half of the array.
+  3. The new search array is {16, 26, 50} since the first half, plus the middle
+     value have been eliminated.
+  4. Repeat steps 1-2 to find the remaining search array of {16}
+  5. The value us not present in the search array, so return an error or a
+     message that the value is not present in the array.

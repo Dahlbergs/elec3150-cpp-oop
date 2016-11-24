@@ -1,0 +1,23 @@
+* Question 2
+  The algorithm I produced could be changed very easily to use doubles instead
+  of chars. By changing the type of the array and the size calculation to
+  doubles, the algorithm would work correctly. Alternatively, the code could be
+  abstracted out into a templated function, which would then be easily
+  manipulated to handle nearly any type of data. I have not provided an example,
+  but the solution would be a good template exercise.
+
+* Question 3
+  1. { A } Write A
+  2. { B, A } Write B
+  3. { A } Read
+  4. { C, A } Write C
+  5. { A } Read
+  6. { D, A } Write D
+
+* Question 4
+  1. { A } Write A
+  2. { A, B } Write B
+  3. { B } Read
+  4. { B, C } Write C
+  5. { C } Read
+  6. { C, D } Write D
