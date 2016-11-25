@@ -1,10 +1,11 @@
-env = Environment(CPPPATH='/usr/include')
+env = Environment(CPPPATH='/usr/include',
+                  CXXFLAGS="-g -std=c++0x")
 
 env.Program('SFMLApp', ['main.cpp',
                         'game.cpp',
-                        'game_piece.cpp',
-                        'input.cpp',
-                        'gui.cpp',
-                        'event_bus.cpp'],
+                        'event_handler.cpp',
+                        'board.cpp',
+                        'tile.cpp',
+                        'piece.cpp'],
             LIBS = ['sfml-window','sfml-system','sfml-graphics'],
             LIBPATH = ['/usr/lib', '/usr/local/lib'])

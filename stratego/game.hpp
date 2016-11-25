@@ -1,8 +1,8 @@
 #pragma once
 
-#include "event_bus.hpp"
-
 #include <SFML/Graphics.hpp>
+
+#include "board.hpp"
 
 class Game {
 public:
@@ -16,5 +16,6 @@ private:
     void Render();
 
     sf::RenderWindow window_;
-    EventBus event_bus_;
+    Board board_;
+
 };

@@ -4,16 +4,14 @@
 
 Game::Game()
     : window_(sf::VideoMode(1000, 640), "Stratego Clone"),
-      event_bus_(&window_) {
-
+      board_(640, 640, &window_) {
 
 }
 
 void Game::Run() {
     while (window_.isOpen()) {
-        // Update();
         ProcessEvents();
-        // Render();
+        Render();
     }
 }
 
@@ -21,14 +19,31 @@ void Game::ProcessEvents() {
    sf::Event event;
 
     while (window_.pollEvent(event)) {
-        event_bus_.HandleEvent(event);
+        switch(event.type) {
+        case sf::Event::Closed:
+            window_.close();
+            break;
+        case sf::Event::MouseButtonPressed:
+            if (event.mouseButton.button == sf::Mouse::Left) {
+                board_.GetPieceAtPosition(event.mouseButton.x,
+                                          event.mouseButton.y);
+            }
+            break;
+        case sf::Event::MouseMoved:
+            board_.MoveSelectedPiece();
+            break;
+        }
     }
-}
-
-void Game::Render() {
-
 }
 
 void Game::Update() {
 
 }
+
+void Game::Render() {
+    window_.clear();
+    window_.draw(board_.GetSprite());
+    board_.Draw();
+    window_.display();
+}
+
