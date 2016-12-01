@@ -16,7 +16,7 @@ void Game::Run() {
 }
 
 void Game::ProcessEvents() {
-   sf::Event event;
+    sf::Event event;
 
     while (window_.pollEvent(event)) {
         switch(event.type) {
@@ -25,9 +25,14 @@ void Game::ProcessEvents() {
             break;
         case sf::Event::MouseButtonPressed:
             if (event.mouseButton.button == sf::Mouse::Left) {
-                board_.GetPieceAtPosition(event.mouseButton.x,
-                                          event.mouseButton.y);
+                board_.SelectPieceAtPosition();
             }
+            break;
+        case sf::Event::MouseButtonReleased:
+            if (event.mouseButton.button == sf::Mouse::Left) {
+                board_.SwapSelectedTile();
+            }
+
             break;
         case sf::Event::MouseMoved:
             board_.MoveSelectedPiece();

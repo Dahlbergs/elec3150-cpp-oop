@@ -18,6 +18,7 @@ public:
         SPY = 0x0A,
         BOMB = 0x0B,
         FLAG = 0x0C,
+        IMPASSABLE = 0x0D
     };
 
     enum class Color : uint8_t {
@@ -27,21 +28,18 @@ public:
     };
 
     Piece();
-    Piece(Type type, Color color);
 
-    void CreateSprite(Type type, Color color);
-
-    sf::Sprite GetSprite();
-
+    void CreateSprite(Type type, Color color, sf::Texture* texture);
     void SetPosition(float x, float y);
-    int GetPositionX();
-    int GetPositionY();
-    sf::Sprite sprite_;
+
+    Type GetType() {return type_; }
+    Color GetColor() { return color_; }
+    sf::Sprite GetSprite() { return sprite_; }
+
 
 private:
+    sf::Sprite sprite_;
     Type type_;
-    sf::Texture texture_;
+    Color color_;
 
-    int pos_x_;
-    int pos_y_;
 };

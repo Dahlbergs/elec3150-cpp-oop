@@ -17,5 +17,4 @@ private:
 
     sf::RenderWindow window_;
     Board board_;
-
 };
