@@ -22,3 +22,8 @@ enum class Color : uint8_t {
         BLUE = 0x01,
         RED = 0x02
 };
+
+enum class Button : uint8_t {
+    NONE = 0x00,
+    DONE_PLACING = 0x19
+};

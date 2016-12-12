@@ -13,6 +13,7 @@ public:
     void LoadTextures();
 
     sf::Texture& GetTexture(Type type, Color color);
+    sf::Texture& GetButtonTexture(Button button);
     sf::Texture& GetEmptyTexture();
     sf::Texture& GetImpassableTexture();
     sf::Texture& GetMapTexture();

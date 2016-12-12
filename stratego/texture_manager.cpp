@@ -2,7 +2,11 @@
 
 TextureManager::TextureManager()
     : textures_(26, sf::Texture()) {
+
+    /* Empty or impassible slot texture */
     texture_paths_.push_back("assets/empty.png");
+
+    /* Game piece textures */
     texture_paths_.push_back("assets/one_blue.png");
     texture_paths_.push_back("assets/two_blue.png");
     texture_paths_.push_back("assets/three_blue.png");
@@ -27,6 +31,9 @@ TextureManager::TextureManager()
     texture_paths_.push_back("assets/spy_red.png");
     texture_paths_.push_back("assets/bomb_red.png");
     texture_paths_.push_back("assets/flag_red.png");
+
+    /* Button textures */
+    texture_paths_.push_back("assets/done_placing.png");
 
     LoadTextures();
 }
@@ -83,6 +90,22 @@ sf::Texture& TextureManager::GetTexture(Type type, Color color) {
     case Type::FLAG:
         index += 11;
         break;
+    }
+
+    return textures_[index];
+}
+
+sf::Texture& TextureManager::GetButtonTexture(Button button) {
+    int index = 25;
+
+    switch (button) {
+    case Button::NONE:
+        index = 0;
+        break;
+    case Button::DONE_PLACING:
+        break;
+    default:
+        index = 0;
     }
 
     return textures_[index];

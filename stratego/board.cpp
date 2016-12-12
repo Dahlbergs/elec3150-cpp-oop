@@ -5,7 +5,8 @@
 /* @param height The height of the board in pixels
    @param width The width of the board in pixel */
 Board::Board(int height, int width, sf::RenderWindow *window)
-    : map_height_(height),
+    : game_state_(GameState::SETUP),
+      map_height_(height),
       map_width_(width),
       window_(window),
       mouse_selected_(nullptr) {
@@ -18,6 +19,7 @@ Board::Board(int height, int width, sf::RenderWindow *window)
     InitializeBlue();
     InitializeRed();
     InitializeImpassable();
+    InitializeButtons();
 
     if(!texture_.loadFromFile("assets/map.png")) {
         std::cout << "Error loading map image" << std::endl;
@@ -44,6 +46,28 @@ Tile Board::GetTileAtMouse() {
     }
 }
 
+ButtonTile Board::ClickButtonAtPosition() {
+    sf::Vector2i mouse_pos = sf::Mouse::getPosition(*window_);
+
+    std::cout << "GetButtonAtPosition" << std::endl;
+    std::cout << "MousePosition(" << mouse_pos.x << ", " << mouse_pos.y << ")" << std::endl;
+
+    if (mouse_pos.x <= 640 || mouse_pos.x > 1000 ||
+        mouse_pos.y < 0 || mouse_pos.y > 640) {
+        std::cout << "No button at position";
+        return ButtonTile();
+
+    } else {
+        if (mouse_pos.x < 730 || mouse_pos.x > 910 ||
+            mouse_pos.y < 50 || mouse_pos.y > 110) {
+        } else {
+            std::cout << "Done placing" << std::endl;
+            game_state_ = GameState::PLAYING;
+            return button_menu_[0];
+        }
+    }
+}
+
 void Board::SelectPieceAtPosition() {
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(*window_);
 
@@ -51,18 +75,21 @@ void Board::SelectPieceAtPosition() {
     int pos_y = mouse_pos.y / 64;
 
     if (pos_x < 0 || pos_y < 0 ||
-        pos_x > 9 || pos_y > 9) {
+        pos_x > 16 || pos_y > 10) {
         std::cout << "No piece at mouse" << std::endl;
+    } else if (pos_x >= 10) {
+        std::cout << "Getting Button" << std::endl;
+        ClickButtonAtPosition();
     } else {
         Type select_type = map_[pos_y][pos_x].GetType();
 
-        if ( select_type == Type::EMPTY ||
+        if (game_state_ != GameState::SETUP &&
+            (select_type == Type::EMPTY ||
              select_type == Type::IMPASSABLE ||
              select_type == Type::FLAG ||
-             select_type == Type::BOMB) {
-            mouse_selected_ = nullptr;
-            mouse_selected_origin_ = nullptr;
-
+             select_type == Type::BOMB)) {
+                mouse_selected_ = nullptr;
+                mouse_selected_origin_ = nullptr;
         } else {
             std::cout << "Mouse pos: (" << pos_x << ", " << pos_y << ")" << std::endl;
             mouse_selected_copy_ = map_[pos_y][pos_x];
@@ -83,7 +110,7 @@ void Board::MoveSelectedPiece() {
     }
 }
 
-void Board::SwapSelectedTile() {
+void Board::CheckValidMovement() {
     std::cout << "SwapPositions" << std::endl;
 
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(*window_);
@@ -102,23 +129,36 @@ void Board::SwapSelectedTile() {
             mouse_selected_origin_ != nullptr) {
             if (mouse_selected_->GetType() == Type::EMPTY) {
                 ResetSelectedTile();
-            } else {
-                // int orig_x = mouse_selected_origin_->GetPosX();
-                // int orig_y = mouse_selected_origin_->GetPosY();
-
-                // map_[orig_y / 64][orig_x / 64] = map_[pos_y][pos_x];
-                // map_[orig_y / 64][orig_x / 64].SetPosition(orig_x, orig_y);
-
-                // mouse_selected_->SetPosition(mouse_pos.x - (mouse_pos.x % 64),
-                //                                mouse_pos.y - (mouse_pos.y % 64));
-                // map_[pos_y][pos_x] = *mouse_selected_;
-                // mouse_selected_ = nullptr;
-                // mouse_selected_origin_ = nullptr;
+            } else if (game_state_ == GameState::PLAYING) {
                 CompareTiles();
+            } else {
+                SetupCompareTiles();
             }
         } else {
             std::cout << "Selection is null" << std::endl;
         }
+    }
+}
+
+void Board::SwapSelectedTile() {
+    std::cout << "SwapSelectedTile()" << std::endl;
+    if (mouse_selected_ != nullptr &&
+        mouse_selected_origin_ != nullptr) {
+        sf::Vector2i mouse_pos = sf::Mouse::getPosition(*window_);
+        int orig_x = mouse_selected_origin_->GetPosX();
+        int orig_y = mouse_selected_origin_->GetPosY();
+
+
+        mouse_selected_->SetPosition(mouse_pos.x - (mouse_pos.x % 64),
+                                       mouse_pos.y - (mouse_pos.y % 64));
+
+        Tile temp = map_[mouse_pos.y / 64][mouse_pos.x / 64];
+        temp.SetPosition(orig_x, orig_y);
+        map_[mouse_pos.y / 64][mouse_pos.x / 64] = *mouse_selected_;
+        map_[orig_y / 64][orig_x / 64] = temp;
+
+        mouse_selected_ = nullptr;
+        mouse_selected_origin_ = nullptr;
     }
 }
 
@@ -192,6 +232,25 @@ void Board::KillAndResetTile() {
     }
 }
 
+void Board::SetupCompareTiles() {
+    if(mouse_selected_ != nullptr &&
+       mouse_selected_origin_ != nullptr) {
+        Tile start = *mouse_selected_;
+        Tile end = GetTileAtMouse();
+
+        Type start_type = start.GetType();
+        Type end_type = end.GetType();
+
+        if (start.GetColor() != end.GetColor()) {
+            std::cout << "Invalid setup swap, you may only swap owned pieces"
+                      << std::endl;
+            ResetSelectedTile();
+        } else {
+            SwapSelectedTile();
+        }
+    }
+}
+
 void Board::CompareTiles() {
     if (mouse_selected_ != nullptr &&
         mouse_selected_origin_ != nullptr) {
@@ -256,6 +315,8 @@ void Board::Draw() {
             }
         }
     }
+
+    window_->draw(button_menu_[0].GetSprite());
 }
 
 
@@ -378,5 +439,10 @@ void Board::InitializeImpassable() {
     map_[4][7].SetImpassable();
     map_[5][7].SetImpassable();
 
+}
+
+void Board::InitializeButtons() {
+    button_menu_[0].SetButtonType(Button::DONE_PLACING);
+    button_menu_[0].SetPosition(730, 50);
 }
 

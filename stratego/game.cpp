@@ -9,6 +9,7 @@ Game::Game()
 }
 
 void Game::Run() {
+
     while (window_.isOpen()) {
         ProcessEvents();
         Render();
@@ -30,7 +31,7 @@ void Game::ProcessEvents() {
             break;
         case sf::Event::MouseButtonReleased:
             if (event.mouseButton.button == sf::Mouse::Left) {
-                board_.SwapSelectedTile();
+                board_.CheckValidMovement();
             }
 
             break;
@@ -46,7 +47,7 @@ void Game::Update() {
 }
 
 void Game::Render() {
-    window_.clear();
+    window_.clear(sf::Color(0x90, 0x95, 0xA1));
     window_.draw(board_.GetSprite());
     board_.Draw();
     window_.display();
